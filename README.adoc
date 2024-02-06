@@ -24,6 +24,21 @@
 
 === Workoads API
 
+.コンテナの実行に関するリソース
+[cols="4,~,~"]
+|===
+|種類|概要|備考
+| Pod a| 
+* 1つ以上のコンテナからなるリソース
+* 同じPodに含まれるコンテナ同氏はIPアドレスを共有し、localhostで通信可能|
+|  ReplicaSet  | 指定した数のPodを維持し続けるリソース（セルフヒーリング）  |
+| Deployment |   |
+| DaemonSet |   |
+| StatefulSet |   |
+| Job |   |
+| CronJob |  |
+|===
+
 === Service API
 
 === Config/Storage API
