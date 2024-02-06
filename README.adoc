@@ -25,19 +25,38 @@
 === Workoads API
 
 .コンテナの実行に関するリソース
-[cols="4,~,~"]
+[cols="4,~,~",options="header"]
 |===
 |種類|概要|備考
 | Pod a| 
 * 1つ以上のコンテナからなるリソース
 * 同じPodに含まれるコンテナ同氏はIPアドレスを共有し、localhostで通信可能|
 |  ReplicaSet  | 指定した数のPodを維持し続けるリソース（セルフヒーリング）  |
-| Deployment |   |
-| DaemonSet |   |
-| StatefulSet |   |
-| Job |   |
-| CronJob |  |
+| Deployment | ReplicaSetを管理し、ローリングアップデートやロールバックを実現するリソース  | ローリングアップデートはシステムを停止させずに徐々にソフトウェアを入替・更新する方式
+| DaemonSet a|
+* ReplicaSetの特殊形で、各ノードにPodを1つずつ配置するリソース
+* 全ノードで必ず動作させたいプロセスに利用する  |
+| StatefulSet a| 
+* ReplicaSetの特殊計で、DBなどステートフルなワークロードに対応するためのリソース
+* PersistentVolumeClaimを利用して永続化領域を確保し、Podにアタッチする |
+| Job a|
+* コンテナを利用して一度限りの処理を実行させるリソース
+* ReplicaSetと異なり、Podの停止 = 正常終了となる用途（バッチ処理など）向き a|
+* タスク型は（N並列で）Podの正常終了がK回になるまで実行
+* ワークキュー型はN並列で、1つでも正常終了するまで実行
+| CronJob | スケジュールされた時間にJobを実行するリソース |
 |===
+
+.各リソースの親子関係
+[cols="^.10,^.10,^.10",options="header"]
+|===
+|下位リソース| <- | 上位リソース
+.4+^.^|`Pod` |`ReplicaSet` |`Deployment`
+|`DaemonSet` |-
+|`StatefulSet` |-
+|`Job` |`CronJob` |-
+|===
+上位リソースが下位リソースを段階的に管理する。
 
 === Service API
 
