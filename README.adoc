@@ -48,7 +48,7 @@
 |===
 
 .各リソースの親子関係
-[cols="^.10,^.10,^.10",options="header"]
+[cols="^.10,^.10,^.10",options="header",halign="center"]
 |===
 |下位リソース| <- | 上位リソース
 .4+^.^|`Pod` |`ReplicaSet` |`Deployment`
