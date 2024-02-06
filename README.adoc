@@ -1,0 +1,48 @@
+:doctype: article
+:lang: ja
+:toc: left
+:toc-levels: 3
+:toc-title: 目次
+:sectnums:
+:sectnum-levels: 3
+:icons: font
+:imagesdir: Images
+:docdir: Docs
+:xrefstyle: short
+:abstract-caption: 概要
+:figure-caption: 図
+:table-caption: 表
+:listing-caption: リスト
+:appendix-caption: 付録
+:example-caption: 例
+:source-highlighter: highlightjs
+:stem: latexmath
+
+= k8sLearning
+
+== k8sのリソース
+
+=== Workoads API
+
+.コンテナの実行に関するリソース
+[cols="4,~,~"]
+|===
+|種類|概要|備考
+| Pod a| 
+* 1つ以上のコンテナからなるリソース
+* 同じPodに含まれるコンテナ同氏はIPアドレスを共有し、localhostで通信可能|
+|  ReplicaSet  | 指定した数のPodを維持し続けるリソース（セルフヒーリング）  |
+| Deployment |   |
+| DaemonSet |   |
+| StatefulSet |   |
+| Job |   |
+| CronJob |  |
+|===
+
+=== Service API
+
+=== Config/Storage API
+
+=== Cluster API
+
+=== Metadata API
