@@ -1,10 +1,10 @@
 :doctype: article
 :lang: ja
 :toc: left
-:toc-levels: 3
+:toc-levels: 5
 :toc-title: 目次
 :sectnums:
-:sectnum-levels: 3
+:sectnum-levels: 5
 :icons: font
 :imagesdir: Images
 :docdir: Docs
