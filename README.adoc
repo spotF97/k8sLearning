@@ -87,10 +87,42 @@ K8sクラスタの内部ネットワーク::
 * ノードごとに異なるネットワークセグメントを構築し、ノード間で通信化
 
 .Serviceリソースに属するType
-[cols="4,~,~",options="header"]
+[cols="6,27,9",options="header"]
 |===
 |種類|概要|備考
+|ClusterIP  a|
+* k8sクラスタ内からのみ疎通性があるnetworkに払い出される仮想IP
+* クラスタ内LBとして機能する|
+|ExternalIP a|
+* *特定の* ノードのIP:Port宛ての通信をコンテナに転送する形で外部疎通性を確立する
+* 特別な事情がない限りNodePort Serviceの使用推奨 |
+|NodePort a|
+* *すべての* ノードのIP:Port宛ての通信をコンテナに転送する形で外部疎通性を確立する
+* 利用できるポートの範囲が決まっている（デフォルトでは30000~32767）| まずはどこかのノードに通信が来るため、ノードが https://e-words.jp/w/SPOF.html[単一障害点]になる
+|LoadBalancer a|
+* クラスタ外のLBに外部疎通性のある仮想IPを払い出す
+* ノードの障害に強い |
+|HeadLess| |
+|ExternalName| |
+|None-Selector| |
+|===
 
+.各Serviceで利用可能な機能
+[cols="3,9,1",options="header"]
+|===
+|種類|概要|備考
+a|セッションアフィニティ +
+(スティッキーセッション)
+a|
+* ClusterIP Serviceで有効にした場合、同じPodへリクエストを転送する
+* NodePort Service(LoadBalancer Service)で有効にした場合、同じPodへリクエストが転送されるとは限らない（転送されるノードによるため）|
+|externalTrafficPolicy a| 
+* ノード到達後にノードをまたいだPodへの負荷分散をするか（NodePort, LoadBalancer）
+* NodePortはPodがないノードに転送されてしまうと応答できなくなる|
+|Topology-aware Service Rooting a| externalTrafficPolicyと同様Serviceの転送についての設定だが、以下の点で異なる。
+
+* ClusterIPでの利用可能
+* 転送範囲の指定 |
 |===
 
 === Config/Storage API
