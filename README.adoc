@@ -84,14 +84,16 @@ https://qiita.com/masaozi3/items/838060d7339aef01bc2e[ロードバランサー�
 * Podをまたいだコンテナ間の通信はPodのIPアドレス宛てに通信
 
 K8sクラスタの内部ネットワーク::
-* ノードごとに異なるネットワークセグメントを構築し、ノード間で通信化
+* ノードごとに異なるネットワークセグメントを構築し、ノード間で通信可
+
+==== Service
 
 .Serviceリソースに属するType
 [cols="6,27,9",options="header"]
 |===
 |種類|概要|備考
 |ClusterIP  a|
-* k8sクラスタ内からのみ疎通性があるnetworkに払い出される仮想IP
+* k8sクラスタ内からのみ疎通性があるnetworkに仮想IPを払い出す
 * クラスタ内LBとして機能する|
 |ExternalIP a|
 * *特定の* ノードのIP:Port宛ての通信をコンテナに転送する形で外部疎通性を確立する
@@ -102,9 +104,16 @@ K8sクラスタの内部ネットワーク::
 |LoadBalancer a|
 * クラスタ外のLBに外部疎通性のある仮想IPを払い出す
 * ノードの障害に強い |
-|HeadLess| |
-|ExternalName| |
-|None-Selector| |
+|HeadLess a|
+* 負荷分散するためのIPアドレスは払い出されず、DNS RRによって対象となる個々のPodのIPアドレスを返却する
+* StatefulSetが利用している場合に限り、Pod名による名前解決が可能|
+|ExternalName a| 
+* Service名の名前解決に対して外部のドメイン宛てのCNAMEを返す
+* ex)「Service名」宛てに通信すると、紐づいた「外部のドメイン」宛てに通信が可能
+* Serviceの設定を変更するだけで接続先を変更でき、外部サービスとの疎結合性を保てる |
+|None-Selector a|
+* Service名で名前解決を行うと指定したメンバに対して負荷分散を行う
+* クラスタ外部への負荷分散が可能になる|
 |===
 
 .各Serviceで利用可能な機能
@@ -124,6 +133,8 @@ a|
 * ClusterIPでの利用可能
 * 転送範囲の指定 |
 |===
+
+==== Ingress
 
 === Config/Storage API
 
