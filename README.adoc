@@ -1,8 +1,6 @@
-ifdef::env-github[]
 :doctype: article
 :lang: ja
 :toc: left
-:toc-placement!:
 :toc-levels: 5
 :toc-title: 目次
 :sectnums:
@@ -19,7 +17,6 @@ ifdef::env-github[]
 :example-caption: 例
 :source-highlighter: highlightjs
 :stem: latexmath
-endif::[]
 
 = k8sLearning
 
@@ -144,5 +141,3 @@ a|
 === Cluster API
 
 === Metadata API
-
-toc::[]
