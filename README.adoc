@@ -29,6 +29,7 @@ toc::[]
 === Workloads API
 
 コンテナの実行に関するリソースはWorkloads APIカテゴリに分類される。
+Workloads APIには以下のリソースが存在する。
 
 .Workloads APIに属するリソースの種別
 [cols="4,~,~",options="header"]
@@ -67,6 +68,7 @@ toc::[]
 === Service API
 
 コンテナを外部に公開するようなエンドポイントを提供するリソースはService APIカテゴリに分類される。
+Service APIには以下のリソースが存在する。
 
 .Service APIに属するリソースの種別
 [cols="4,~,~",options="header"]
@@ -94,6 +96,8 @@ k8sのネットワーク::
 * ノードごとに異なるネットワークセグメントを構築し、ノード間で通信可
 
 ==== Service
+
+Serviceリソースには以下のTypeが存在する。
 
 .Serviceリソースに属するType
 [cols="6,27,9",options="header"]
