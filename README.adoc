@@ -145,11 +145,11 @@ Ingressの概念::
 Ingressは以下の2種に大別できる。
 
 .Ingressの種類
-[cols="^1,5,5"]
+[cols="1,5,5"]
 |===
-|概要|クラスタ外のLB利用|クラスタ内にデプロイしたIngress用のPod利用
-|実装例|GKE Ingress Controller|Nginx Ingress Controller
-|トラフィック a|
+^|概要|クラスタ外のLB利用|クラスタ内にデプロイしたIngress用のPod利用
+^|実装例|GKE Ingress Controller|Nginx Ingress Controller
+^|トラフィック a|
 . クライアント
 . L7LB（NordPort経由）
 . 転送先のPod a|
