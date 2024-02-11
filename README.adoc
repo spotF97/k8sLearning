@@ -2,6 +2,7 @@ ifdef::env-github[]
 :doctype: article
 :lang: ja
 :toc: left
+:toc-placement!:
 :toc-levels: 5
 :toc-title: 目次
 :sectnums:
@@ -143,3 +144,5 @@ a|
 === Cluster API
 
 === Metadata API
+
+toc::[]
