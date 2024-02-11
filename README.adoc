@@ -1,10 +1,12 @@
+ifdef::env-github[]
 :doctype: article
 :lang: ja
-:toc: left
-:toc-levels: 3
 :toc-title: 目次
+:toc: left
+:toc-placement!:
+:toclevels: 5
 :sectnums:
-:sectnum-levels: 3
+:sectnumlevels: 5
 :icons: font
 :imagesdir: Images
 :docdir: Docs
@@ -17,8 +19,11 @@
 :example-caption: 例
 :source-highlighter: highlightjs
 :stem: latexmath
+endif::[]
 
 = k8sLearning
+
+toc::[]
 
 == k8sのリソース
 
@@ -59,6 +64,108 @@
 上位リソースが下位リソースを段階的に管理する。
 
 === Service API
+
+コンテナを外部に公開するようなエンドポイントを提供するリソースで、以下の2種に大別される
+
+[cols="4,~,~",options="header"]
+|===
+|種別|概要|備考
+|Service|L4LBを提供するリソース .2+.^a| 
+L4LB::
+* セッション単位で負荷分散をする
+* やることが単純なため処理が早い
+L7LB::
+* リクエスト単位で負荷分散をする
+* リクエスト内容に基づいた高度な負荷分散ができる
+
+https://qiita.com/masaozi3/items/838060d7339aef01bc2e[ロードバランサーにも種類がある話 - Qiita]
+|Ingress|L7LBを提供するリソース
+|===
+
+k8sのネットワーク::
++
+. コンテナ間通信
+* 同一Pod内のコンテナ間の通信はlocalhost宛てに通信
+* Podをまたいだコンテナ間の通信はPodのIPアドレス宛てに通信
++
+. K8sクラスタの内部ネットワーク
+* ノードごとに異なるネットワークセグメントを構築し、ノード間で通信可
+
+==== Service
+
+.Serviceリソースに属するType
+[cols="6,27,9",options="header"]
+|===
+|種類|概要|備考
+|ClusterIP  a|
+* k8sクラスタ内でのみ疎通性がある仮想IPを払い出す
+* クラスタ内LBとして機能する|
+|ExternalIP a|
+* *特定の* ノードのIP:Port宛ての通信をコンテナに転送する形で外部疎通性を確立する
+* 特別な事情がない限りNodePort Serviceの使用推奨 |
+|NodePort a|
+* *すべての* ノードのIP:Port宛ての通信をコンテナに転送する形で外部疎通性を確立する
+* 利用できるポートの範囲が決まっている（デフォルトでは30000~32767）| まずはどこかのノードに通信が来るため、ノードが https://e-words.jp/w/SPOF.html[単一障害点]になる
+|LoadBalancer a|
+* クラスタ外のLBに外部疎通性のある仮想IPを払い出す
+* ノードの障害に強い |
+|HeadLess a|
+* 負荷分散するためのIPアドレスは払い出されず、DNS RRによって対象となる個々のPodのIPアドレスを返却する
+* StatefulSetが利用している場合に限り、Pod名による名前解決が可能|
+|ExternalName a| 
+* Service名の名前解決に対して外部のドメイン宛ての https://qiita.com/Ogin0pan/items/199986966e541d9e9ba4[CNAME]を返す
+* ex)「Service名」宛てに通信すると、紐づいた「外部のドメイン」宛てに通信が可能
+* Serviceの設定を変更するだけで接続先を変更でき、外部サービスとの疎結合性を保てる |
+|None-Selector a|
+* Service名で名前解決を行うと指定したメンバに対して負荷分散を行う
+* クラスタ外部への負荷分散が可能になる|
+|===
+
+.各Serviceで利用可能な機能
+[cols="3,9,1",options="header"]
+|===
+|種類|概要|備考
+a|セッションアフィニティ +
+(スティッキーセッション)
+a|
+* ClusterIP Serviceで有効にした場合、同じPodへリクエストを転送する
+* NodePort Service(LoadBalancer Service)で有効にした場合、同じPodへリクエストが転送されるとは限らない（転送されるノードによるため）|
+|externalTrafficPolicy a| 
+* ノード到達後にノードをまたいだPodへの負荷分散をするか（NodePort, LoadBalancer）
+* NodePortはPodがないノードに転送されてしまうと応答できなくなる|
+|Topology-aware Service Rooting a| externalTrafficPolicyと同様Serviceの転送についての設定だが、以下の点で異なる。
+
+* ClusterIPでの利用可能
+* 転送範囲の指定 |
+|===
+
+==== Ingress
+
+Ingressの概念::
+. Ingressリソース
+* マニフェストで登録されるAPIリソース
+. Ingress Controller
+* Ingressリソースがk8sに登録された際に何らかの処理をするコントローラ
+
+Ingressは以下の2種に大別できる。
+
+.Ingressの種類
+[cols="1,5,5"]
+|===
+|概要|クラスタ外のLB利用|クラスタ内にデプロイしたIngress用のPod利用
+|実装例|GKE Ingress Controller|Nginx Ingress Controller
+|トラフィック 
+a|
+. クライアント
+. L7LB（NordPort経由）
+. 転送先のPod a|
+. クライアント
+. L4LB（LB Service）
+. Ngix Pod (Ingress Controller)
+. 転送先のPod|
+|===
+
+
 
 === Config/Storage API
 
