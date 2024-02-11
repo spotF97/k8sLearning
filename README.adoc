@@ -1,3 +1,4 @@
+ifdef::env-github[]
 :doctype: article
 :lang: ja
 :toc: left
@@ -17,6 +18,7 @@
 :example-caption: 例
 :source-highlighter: highlightjs
 :stem: latexmath
+endif::[]
 
 = k8sLearning
 
@@ -108,7 +110,7 @@ K8sクラスタの内部ネットワーク::
 * 負荷分散するためのIPアドレスは払い出されず、DNS RRによって対象となる個々のPodのIPアドレスを返却する
 * StatefulSetが利用している場合に限り、Pod名による名前解決が可能|
 |ExternalName a| 
-* Service名の名前解決に対して外部のドメイン宛てのCNAMEを返す
+* Service名の名前解決に対して外部のドメイン宛ての https://qiita.com/Ogin0pan/items/199986966e541d9e9ba4[CNAME]を返す
 * ex)「Service名」宛てに通信すると、紐づいた「外部のドメイン」宛てに通信が可能
 * Serviceの設定を変更するだけで接続先を変更でき、外部サービスとの疎結合性を保てる |
 |None-Selector a|
