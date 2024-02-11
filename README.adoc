@@ -1,7 +1,9 @@
+ifdef::env-github[]
 :doctype: article
 :lang: ja
 :toc-title: 目次
 :toc: left
+:toc-placement!:
 :toclevels: 5
 :sectnums:
 :sectnumlevels: 5
@@ -17,8 +19,11 @@
 :example-caption: 例
 :source-highlighter: highlightjs
 :stem: latexmath
+endif::[]
 
 = k8sLearning
+
+toc::[]
 
 == k8sのリソース
 
