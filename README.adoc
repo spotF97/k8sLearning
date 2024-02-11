@@ -169,6 +169,47 @@ a|
 
 === Config/Storage API
 
+設定・機密情報/永続化ボリュームなどに関するリソースはConfig/Storage APIカテゴリに分類される。
+
+.Config/Storage APIカテゴリに属するリソースの種別
+[cols="4,~,~",options="header"]
+|===
+|種類|概要|備考
+|Sercret|ID/PWなどの機密情報を単独で定義し、Podから読み込むことができるリソース|
+|ConfigMap||
+|PersistentVolumeClaim||
+|===
+
+環境変数::
+* Podに対して、以下の情報源から環境変数を渡すことができる。
++
+[cols="3,10",options="header"]
+|===
+|種類|概要
+|静的設定|マニフェストに静的な値として定義する。
+|Podの情報|`fieldRef` を用いて、マニフェストに登録した内容を含む様々なPodの情報を参照して登録する。
+|コンテナの情報|`resourceFieldRef` を用いて、マニフェストに登録した内容を含む様々なPodの情報を参照して登録する。
+|Secretリソースの機密情報|詳細は後述
+|ConfigMapリソースの設定値|詳細は後述
+|===
+
+==== Secret
+
+Secretリソースには以下のTypeが存在する。
+
+.Secretリソースに属するType
+[cols="6,27,9",options="header"]
+|===
+|種類|概要|備考
+|Opaque|一般的な汎用用途|
+|kubernetes.io/tls|TLS証明書用|
+|kubernetes.io/basic-auth|Basic認証用|
+|kubernetes.io/dockerconfigjson|Dockerレジストリの認証情報用|
+|kubernetes.io/ssh-auth|SSHの認証情報用|
+|kubernetes.io/service-account-token|Service Accountのトークン用|
+|bootstrap.kubernetes.io/token|Bootstrap トークン用|
+|===
+
 === Cluster API
 
 === Metadata API
