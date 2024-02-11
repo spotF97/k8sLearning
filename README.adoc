@@ -1,10 +1,10 @@
 :doctype: article
 :lang: ja
-:toc: left
-:toc-levels: 5
 :toc-title: 目次
+:toc: left
+:toclevels: 5
 :sectnums:
-:sectnum-levels: 5
+:sectnumlevels: 5
 :icons: font
 :imagesdir: Images
 :docdir: Docs
@@ -77,13 +77,13 @@ https://qiita.com/masaozi3/items/838060d7339aef01bc2e[ロードバランサー�
 |Ingress|L7LBを提供するリソース
 |===
 
-==== k8sのネットワーク
-
-コンテナ間通信::
+k8sのネットワーク::
++
+. コンテナ間通信
 * 同一Pod内のコンテナ間の通信はlocalhost宛てに通信
 * Podをまたいだコンテナ間の通信はPodのIPアドレス宛てに通信
-
-K8sクラスタの内部ネットワーク::
++
+. K8sクラスタの内部ネットワーク
 * ノードごとに異なるネットワークセグメントを構築し、ノード間で通信可
 
 ==== Service
@@ -93,7 +93,7 @@ K8sクラスタの内部ネットワーク::
 |===
 |種類|概要|備考
 |ClusterIP  a|
-* k8sクラスタ内からのみ疎通性があるnetworkに仮想IPを払い出す
+* k8sクラスタ内でのみ疎通性がある仮想IPを払い出す
 * クラスタ内LBとして機能する|
 |ExternalIP a|
 * *特定の* ノードのIP:Port宛ての通信をコンテナに転送する形で外部疎通性を確立する
@@ -135,6 +135,31 @@ a|
 |===
 
 ==== Ingress
+
+Ingressの概念::
+. Ingressリソース
+* マニフェストで登録されるAPIリソース
+. Ingress Controller
+* Ingressリソースがk8sに登録された際に何らかの処理をするコントローラ
+
+Ingressは以下の2種に大別できる。
+
+.Ingressの種類
+[cols="1,5,5",options="header"]
+|===
+|概要|クラスタ外のLB利用|クラスタ内にデプロイしたIngress用のPod利用
+|実装例|GKE Ingress Controller|Nginx Ingress Controller
+|トラフィック a|
+. クライアント
+. L7LB（NordPort経由）
+. 転送先のPod a|
+. クライアント
+. L4LB（LB Service）
+. Ngix Pod (Ingress Controller)
+. 転送先のPod|
+|===
+
+
 
 === Config/Storage API
 
