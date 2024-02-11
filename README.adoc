@@ -1,4 +1,3 @@
-ifdef::env-github[]
 :doctype: article
 :lang: ja
 :toc-title: 目次
@@ -19,7 +18,7 @@ ifdef::env-github[]
 :example-caption: 例
 :source-highlighter: highlightjs
 :stem: latexmath
-endif::[]
+
 
 = k8sLearning
 
@@ -27,9 +26,12 @@ toc::[]
 
 == k8sのリソース
 
-=== Workoads API
+=== Workloads API
 
-.コンテナの実行に関するリソース
+コンテナの実行に関するリソースはWorkloads APIカテゴリに分類される。
+Workloads APIには以下のリソースが存在する。
+
+.Workloads APIに属するリソースの種別
 [cols="4,~,~",options="header"]
 |===
 |種類|概要|備考
@@ -65,8 +67,10 @@ toc::[]
 
 === Service API
 
-コンテナを外部に公開するようなエンドポイントを提供するリソースで、以下の2種に大別される
+コンテナを外部に公開するようなエンドポイントを提供するリソースはService APIカテゴリに分類される。
+Service APIには以下のリソースが存在する。
 
+.Service APIに属するリソースの種別
 [cols="4,~,~",options="header"]
 |===
 |種別|概要|備考
@@ -92,6 +96,8 @@ k8sのネットワーク::
 * ノードごとに異なるネットワークセグメントを構築し、ノード間で通信可
 
 ==== Service
+
+Serviceリソースには以下のTypeが存在する。
 
 .Serviceリソースに属するType
 [cols="6,27,9",options="header"]
