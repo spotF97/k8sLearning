@@ -175,12 +175,16 @@ a|
 [cols="4,~,~",options="header"]
 |===
 |種類|概要|備考
-|Sercret|ID/PWなどの機密情報を単独で定義し、Podから読み込むことができるリソース|
-|ConfigMap||
-|PersistentVolumeClaim||
+|Secret|ID/PWなどの機密情報を単独で定義し、Podから読み込むことができるリソース|
+|ConfigMap a| 
+* Key-Value形式でデータを保存しておくリソース
+* 設定ファイル自体も保存可能|
+|PersistentVolumeClaim|永続化領域を利用するためのリソース|
 |===
 
-環境変数::
+.環境変数として渡す方法
+[%collapsible]
+====
 * Podに対して、以下の情報源から環境変数を渡すことができる。
 +
 [cols="3,10",options="header"]
@@ -192,8 +196,20 @@ a|
 |Secretリソースの機密情報|詳細は後述
 |ConfigMapリソースの設定値|詳細は後述
 |===
+====
 
-==== Secret
+
+==== SecretとConfigMap
+
+===== SecretとConfigMapの利用方法
+
+SecretとConfigMapの利用法は以下の2パターン。
+
+. 環境変数として渡す
+. Volumeとしてマウントする
+* Volumeとしてマウントした場合のみ、動的な更新が可能
+
+===== SecretリソースのType
 
 Secretリソースには以下のTypeが存在する。
 
@@ -209,6 +225,27 @@ Secretリソースには以下のTypeが存在する。
 |kubernetes.io/service-account-token|Service Accountのトークン用|
 |bootstrap.kubernetes.io/token|Bootstrap トークン用|
 |===
+
+==== PersistentVolumeClaim
+
+.VolumeとPersistentVolumeとPersistentVolumeClaimの違い
+[%collapsible]
+====
+* VolumeとPersistentVolumeとPersistentVolumeClaimの違いは以下の通り。
++
+[cols="~,~",options="header"]
+|===
+|種類|概要
+|Volume a|
+* 既存のボリュームを利用可能にするもの
+* ボリュームの新規作成・削除はできない
+|PersistentVolume a|
+* 外部の永続ボリュームを登録するもの
+* ボリュームの新規作成・削除が可能
+|PersistentVolumeClaim a|
+* 作成したPersistentVolumeリソースで登録したボリュームを、Podから利用するために定義するリソース
+|===
+====
 
 === Cluster API
 
