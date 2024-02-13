@@ -244,6 +244,22 @@ Secretリソースには以下のTypeが存在する。
 |===
 ====
 
+==== Volume
+
+提供されているVolumeプラグインの一部は以下の通り。
+
+.Volumeプラグインの一部
+[cols="6,27,9",options="header"]
+|===
+|種類|概要|備考
+|emptyDir||
+|hostPath||
+|downwardAPI||
+|projected||
+|===
+
+
+
 === Cluster API
 
 === Metadata API
