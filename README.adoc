@@ -198,10 +198,7 @@ a|
 |===
 ====
 
-
-==== SecretとConfigMap
-
-===== SecretとConfigMapの利用方法
+==== SecretとConfigMapの利用方法
 
 SecretとConfigMapの利用法は以下の2パターン。
 
@@ -209,7 +206,7 @@ SecretとConfigMapの利用法は以下の2パターン。
 . Volumeとしてマウントする
 * Volumeとしてマウントした場合のみ、動的な更新が可能
 
-===== SecretリソースのType
+==== SecretリソースのType
 
 Secretリソースには以下のTypeが存在する。
 
