@@ -256,15 +256,61 @@ VolumeとPersistentVolumeとPersistentVolumeClaimの違いは以下の通り。
 [cols="6,27,9",options="header"]
 |===
 |種類|概要|備考
-|emptyDir||
-|hostPath||
-|downwardAPI||
-|projected||
+|emptyDir|用意されたホスト上の領域をPod用の一時的なディスク領域としてマウントする
+|
+|hostPath|任意のホスト上の領域をPod用の一時的なディスク領域としてマウントする|
+|downwardAPI|Podの情報などをファイルとして配置する|
+|projected|Secret, ConfigMap, downwardAPI, serviceAccountTokenのボリュームマウントを一か所のディレクトリに集約する|
 |===
 
 ===== PersistentVolume
 
+PV作成時に設定可能な項目は以下の通り。
+
+* ラベル
+* 容量
+* アクセスモード
++
+[cols="~,~",options="header"]
+|===
+|種類|概要
+|ReadWriteOnce(RWO)|単一ノードからRead, Writeが可能
+|ReadOnlyyMany(ROX)|複数ノードからReadが可能
+|ReadWriteMany(RWX)|複数ノードからRead, Writeが可能
+|===
++
+* Reclaim Policy
+** PVを利用し終わった後(PVC削除時)の処理方法を制御する
++
+[cols="~,~,~",options="header"]
+|===
+|種類|概要|備考
+|Delete|PVの実体を削除|
+|Retain|PVの実体を削除せず保持|他のPVCによって再マウントはされない
+|Recycle|PVのデータを削除し、再利用可能にする|廃止が検討されているため非推奨
+|===
++
+StorageClass
+** GKEではデフォルトでプロビジョニングを行う仕組みが定義されたStorageClassが定義されている。
++
+* マウントオプション
+
 ===== PersistentVolumeClaim
+
+PVC作成時に設定可能な項目は以下の通りで、設定値にマッチするPVが払い出される。
+
+* ラベルセレクタ
+* 容量（*1）
+* アクセスモード
+* StorageClass
+
+*1 PVCの容量がPVの容量より小さければ割り当てられてしまう。
+
+===== Dynamic Provisioning
+
+Dynamic Provisioningを利用したPVCは、PVCを発行したタイミングで動的にPVが作成され、割り当てられる。
+
+利用するには、作成するPVを定義したStorageClassを作成する。この時に設定するProvisionerによってプロビジョニングが行われる。
 
 === Cluster API
 
