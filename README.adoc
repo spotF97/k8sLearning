@@ -20,13 +20,11 @@
 :stem: latexmath
 
 
-= k8sLearning
+= k8sのリソース
 
 toc::[]
 
-== k8sのリソース
-
-=== Workloads API
+== Workloads API
 
 コンテナの実行に関するリソースはWorkloads APIカテゴリに分類される。
 Workloads APIには以下のリソースが存在する。
@@ -65,7 +63,7 @@ Workloads APIには以下のリソースが存在する。
 |===
 上位リソースが下位リソースを段階的に管理する。
 
-=== Service API
+== Service API
 
 コンテナを外部に公開するようなエンドポイントを提供するリソースはService APIカテゴリに分類される。
 Service APIには以下のリソースが存在する。
@@ -97,7 +95,7 @@ https://qiita.com/masaozi3/items/838060d7339aef01bc2e[ロードバランサー�
 . K8sクラスタの内部ネットワーク
 * ノードごとに異なるネットワークセグメントを構築し、ノード間で通信可
 ====
-==== Service
+=== Service
 
 Serviceリソースには以下のTypeが存在する。
 
@@ -147,7 +145,7 @@ a|
 * 転送範囲の指定 |
 |===
 
-==== Ingress
+=== Ingress
 
 Ingressの概念::
 . Ingressリソース
@@ -175,7 +173,7 @@ a|
 
 
 
-=== Config/Storage API
+== Config/Storage API
 
 設定・機密情報/永続化ボリュームなどに関するリソースはConfig/Storage APIカテゴリに分類される。
 
@@ -214,7 +212,7 @@ SecretとConfigMapの利用::
 . Volumeとしてマウントする
 * Volumeとしてマウントした場合のみ、動的な更新が可能
 
-==== Secret
+=== Secret
 
 Secretリソースには以下のTypeが存在する。
 
@@ -231,7 +229,7 @@ Secretリソースには以下のTypeが存在する。
 |bootstrap.kubernetes.io/token|Bootstrap トークン用|
 |===
 
-==== PersistentVolumeClaim
+=== PersistentVolumeClaim
 
 VolumeとPersistentVolumeとPersistentVolumeClaimの違いは以下の通り。
 
@@ -248,7 +246,7 @@ VolumeとPersistentVolumeとPersistentVolumeClaimの違いは以下の通り。
 * 作成したPersistentVolumeリソースで登録したボリュームを、Podから利用するために定義するリソース
 |===
 
-===== Volume
+==== Volume
 
 提供されているVolumeプラグインの一部は以下の通り。
 
@@ -263,7 +261,7 @@ VolumeとPersistentVolumeとPersistentVolumeClaimの違いは以下の通り。
 |projected|Secret, ConfigMap, downwardAPI, serviceAccountTokenのボリュームマウントを一か所のディレクトリに集約する|
 |===
 
-===== PersistentVolume
+==== PersistentVolume
 
 PV作成時に設定可能な項目は以下の通り。
 
@@ -295,7 +293,7 @@ StorageClass
 +
 * マウントオプション
 
-===== PersistentVolumeClaim
+==== PersistentVolumeClaim
 
 PVC作成時に設定可能な項目は以下の通りで、設定値にマッチするPVが払い出される。
 
@@ -306,12 +304,12 @@ PVC作成時に設定可能な項目は以下の通りで、設定値にマッ�
 
 *1 PVCの容量がPVの容量より小さければ割り当てられてしまう。
 
-===== Dynamic Provisioning
+==== Dynamic Provisioning
 
 Dynamic Provisioningを利用したPVCは、PVCを発行したタイミングで動的にPVが作成され、割り当てられる。
 
 利用するには、作成するPVを定義したStorageClassを作成する。この時に設定するProvisionerによってプロビジョニングが行われる。
 
-=== Cluster API
+== Cluster API
 
-=== Metadata API
+== Metadata API
