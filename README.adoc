@@ -233,17 +233,16 @@ Secretリソースには以下のTypeが存在する。
 
 VolumeとPersistentVolumeとPersistentVolumeClaimの違いは以下の通り。
 
-[cols="~,~",options="header"]
+[cols="~,~,~",options="header"]
 |===
-|種類|概要
+|種類|概要|備考
 |Volume a|
 * 既存のボリュームを利用可能にするもの
-* ボリュームの新規作成・削除はできない
+* ボリュームの新規作成・削除はできない|
 |PersistentVolume a|
 * 外部の永続ボリュームを登録するもの
-* ボリュームの新規作成・削除が可能
-|PersistentVolumeClaim a|
-* 作成したPersistentVolumeリソースで登録したボリュームを、Podから利用するために定義するリソース
+* ボリュームの新規作成・削除が可能|FSではなくブロックデバイスとしてもウント可能
+|PersistentVolumeClaim |作成したPersistentVolumeリソースで登録したボリュームを、Podから利用するために定義するリソース|
 |===
 
 ==== Volume
@@ -254,11 +253,17 @@ VolumeとPersistentVolumeとPersistentVolumeClaimの違いは以下の通り。
 [cols="6,27,9",options="header"]
 |===
 |種類|概要|備考
-|emptyDir|用意されたホスト上の領域をPod用の一時的なディスク領域としてマウントする
-|
-|hostPath|任意のホスト上の領域をPod用の一時的なディスク領域としてマウントする|
-|downwardAPI|Podの情報などをファイルとして配置する|
-|projected|Secret, ConfigMap, downwardAPI, serviceAccountTokenのボリュームマウントを一か所のディレクトリに集約する|
+|emptyDir a|
+* 用意されたホスト上の領域をPod用の一時的なディスク領域としてマウントする
+* Podからはホスト上のファイルを参照できない。
+.4+.^a|
+* hostPath利用時はvolumeMountsにReadOnlyオプションを付与すべき
+* subPathオプションにより特定のディレクトリをルートとしてマウントできる
+|hostPath a|
+* 任意のホスト上の領域をPod用の一時的なディスク領域としてマウントする
+* Podからはホスト上のファイルを参照できる。
+|downwardAPI|Podの情報などをファイルとして配置する
+|projected|Secret, ConfigMap, downwardAPI, serviceAccountTokenのボリュームマウントを一か所のディレクトリに集約する
 |===
 
 ==== PersistentVolume
@@ -309,6 +314,9 @@ PVC作成時に設定可能な項目は以下の通りで、設定値にマッ�
 Dynamic Provisioningを利用したPVCは、PVCを発行したタイミングで動的にPVが作成され、割り当てられる。
 
 利用するには、作成するPVを定義したStorageClassを作成する。この時に設定するProvisionerによってプロビジョニングが行われる。
+
+PVの割り当てタイミングの制御やPVCのボリュームの拡張も可能
+
 
 == Cluster API
 
