@@ -1,0 +1,73 @@
+:doctype: article
+:lang: ja
+:toc-title: 目次
+:toc: left
+:toc-placement!:
+:toclevels: 5
+:sectnums:
+:sectnumlevels: 5
+:icons: font
+:imagesdir: Images
+:docdir: Docs
+:xrefstyle: short
+:abstract-caption: 概要
+:figure-caption: 図
+:table-caption: 表
+:listing-caption: リスト
+:appendix-caption: 付録
+:example-caption: 例
+:source-highlighter: highlightjs
+:stem: latexmath
+
+
+= 用語集
+
+toc::[]
+
+.クラウドネイティブアーキテクチャ関連
+[cols="12,~,~",options="header"]
+|===
+|用語|概要|備考
+|event sourcing a|
+- アプリケーションで行った出来事を永続化する仕組み
+- 特定の時点のアプリケーションを復元できる|https://qiita.com/tat_tt/items/f3fbc8cb9203998fdb62[イベントソーシングについて学んだこと]
+|blue-green deployment a| 
+- 現在の環境（ブルー）と新しい環境（グリーン）を用意して、接続先を切り替えることで環境を更新する方法
+- 切り替えに伴うシステム停止時間が短く、ロールバックも容易|https://e-words.jp/w/%E3%83%96%E3%83%AB%E3%83%BC%E3%82%B0%E3%83%AA%E3%83%BC%E3%83%B3%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%83%A1%E3%83%B3%E3%83%88.html[ブルーグリーンデプロイメント 【blue-green deployment】]
+|canary release a|
+- 一部のアクセスを最新環境へ振り分けるデプロイ手法|https://xtech.nikkei.com/atcl/nxt/keyword/18/00002/081900087/[3分でわかる カナリアリリース]
+|Twelve-Factor App|スケーラブルで保守性の高いSaaSを構築するための方法論 
+|https://qiita.com/supreme0110/items/17c58c660137e23ef713[Twelve-Factor Appを噛み砕いてみた]
+|Anti Corruption Layer|データを変換してモデル間の違いを吸収する|https://qiita.com/shimgo/items/cf161a6325c2718085fe#%E8%85%90%E6%95%97%E9%98%B2%E6%AD%A2%E5%B1%A4anticorruption-layer[エリック・エヴァンスのドメイン駆動設計（日本語訳版）を読み解くための用語解説 その3: モデルの整合性を保つためのパターン]
+|===
+
+
+- `Prometheus`
+* OSSの監視ツール
++
+[options="header"]
+|===
+|コンポーネント|概要
+|`Prometheus Server`|メトリクスの収集と保存などを行う
+|`Exporter`|Prometheus Serverからのリクエストに応じて、抽出した監視項目のメトリクスを返す（Pull型）
+|`Push Gateway`|Prometheus Serverからのリクエストに応じて、各プログラムから送信されて蓄積したメトリクスを返す（Push型）
+|`Alert Manager`|Prometheus Serverからのリクエストに応じて、アラートの通知を行う
+|===
++
+Prometheusのメトリクスの可視化には `Grafana` を使うのが一般的
+
+- `Istio`
+* C++で書かれたEnvoy（プロキシソフトウェア）を使ってサービスメッシュを構成するOSS
++
+[options="header"]
+|===
+|コンポーネント|概要
+|`Envoy`| Podに流れてくる全てのトラフィックを管理するプロキシ
+|`Mixer`|Envoyと連携し、アクセス制御や、ログ、トレース、メトリクスの収集を行う
+|`Pilot`|Envoyの構成管理を行い、サービス間の動作を制御する
+|`Citadel`|ポリシーの管理、認証・認可と暗号化といった諸機能を提供し、サービス間通信の安全性を担保する
+|===
++
+image::https://thinkit.co.jp/sites/default/files/article_node/1464011.jpg[]
++
+https://thinkit.co.jp/article/14640[Istioの全貌]
