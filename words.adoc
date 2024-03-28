@@ -40,6 +40,8 @@ toc::[]
 |https://qiita.com/supreme0110/items/17c58c660137e23ef713[Twelve-Factor Appを噛み砕いてみた]
 |Anti Corruption Layer|データを変換してモデル間の違いを吸収する|https://qiita.com/shimgo/items/cf161a6325c2718085fe#%E8%85%90%E6%95%97%E9%98%B2%E6%AD%A2%E5%B1%A4anticorruption-layer[エリック・エヴァンスのドメイン駆動設計（日本語訳版）を読み解くための用語解説 その3: モデルの整合性を保つためのパターン]
 |Reconciliation Loop|k8sのあるべき姿と実際の状態を比較して実際の状態をあるべき状態へと近づける処理|https://qiita.com/shiei_kawa/items/e745f20040ad5911fcc2#reconciliation-loop[kubebuilderに触れてみた①概念編]
+|サービスレベル指標(SLI)|応答時間、エラー率、可用性など、サービスのパフォーマンスの特定の側面を定量化する特定の指標または測定値|
+|サービスレベル目標(SLO)|一定期間における 1 つ以上の SLI のパフォーマンスの許容レベルを定義するターゲットまたは目標|
 |===
 
 
