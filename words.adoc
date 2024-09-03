@@ -42,6 +42,10 @@ toc::[]
 |Reconciliation Loop|k8sのあるべき姿と実際の状態を比較して実際の状態をあるべき状態へと近づける処理|https://qiita.com/shiei_kawa/items/e745f20040ad5911fcc2#reconciliation-loop[kubebuilderに触れてみた①概念編]
 |サービスレベル指標(SLI)|応答時間、エラー率、可用性など、サービスのパフォーマンスの特定の側面を定量化する特定の指標または測定値|
 |サービスレベル目標(SLO)|一定期間における 1 つ以上の SLI のパフォーマンスの許容レベルを定義するターゲットまたは目標|
+|Resiliency|回復力、復元力。問題が発生してから正常な状態に復旧・復元する能力（の大きさ）のこと|覚え方：`Racoons Are Often Observant = Resiliency, Agility, Operability, Observability`
+|Agility|俊敏性、敏捷性。アプリケーションを迅速に構築、変更、デプロイできる能力のこと|
+|Operability|操作性。アプリケーションのデプロイ、管理の容易さを示す|
+|Observability|可観測性。システムの出力から内部状態を測定できる能力のこと|
 |===
 
 
